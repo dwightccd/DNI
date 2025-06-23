@@ -1,0 +1,581 @@
+:root {
+	color-scheme: light dark;
+	--colorActivo: light-dark(#FFF, #000);
+	--colorBoton: light-dark(currentColor, #333);
+	--colorFondoBoton: light-dark(#EFEFEF, #EFEFEF);
+	--colorFondoBotonHover: light-dark(#F5F5F5, #C0C0C0);
+	--colorBotonPrincipal: #FFFFFF;
+	--colorFondoBotonPrincipal: #0D6EFD;
+	--colorFondoBotonPrincipalHover: #0B5ED7;
+	/* colores para el wizard */
+	--mainColor: var(--colorFondoBotonPrincipal);
+	--baseColor: light-dark(#555, currentColor);
+	--colorAncla: light-dark(#555, #AAA);
+	--colorPie: light-dark(#EFEFEF, #333);
+}
+
+body {
+	font-family: Verdana, Sans-Serif;
+	margin: 0;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	interpolate-size: allow-keywords;
+}
+
+p {
+	line-height: 1.4;
+}
+
+main {
+	box-sizing: border-box;
+	margin: 0 auto;
+	max-width: 1020px;
+	padding: 0 10px;
+	width: 100%;
+}
+
+label {
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+button,
+input,
+select {
+	font-size: 100%;
+}
+
+#pasos summary {
+	display: none;
+}
+
+#pasos details > div {
+	padding: 0 1em 1em;
+}
+
+#pasos details[open] > div {
+	border: 1px solid #BBB;
+	margin: 10px 0;
+}
+
+#DivFichero {
+	height: 0;
+}
+
+#SelectorFichero {
+	width: 1px;
+	height: 1px;
+	opacity: .1;
+	background: transparent;
+}
+
+
+#ControlesDesplazamiento > .ContenedorControl {
+	margin: 10px 0;
+}
+
+.ContenedorControl {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0 10px;
+}
+
+.ContenedorControl input {
+	flex: 1;
+}
+
+.ContenedorControl label {
+	flex-basis: 140px;
+}
+
+.CampoCheckbox {
+	margin-block: 1em;
+}
+
+#Watermark {
+	padding: 3px 5px;
+}
+
+@media (max-width: 560px) {
+	.ContenedorControl label {
+		flex-basis: 100%;
+	}
+}
+
+.centrado {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+	justify-content: center;
+	margin: 2em 0 1em;
+}
+
+.centrado input {
+	padding: .3em 2.3em;
+}
+
+.Siguiente {
+	margin-top: 1em;
+	display: flex;
+	justify-content: space-between;
+}
+
+#AyudaOcultarNumeroSoporte,
+#AyudaOcultarParcialmente {
+	font-size: 90%;
+}
+
+#Compartir {
+	margin-left: 1em;
+}
+
+#Previsualizacion,
+canvas {
+	max-width: 100%;
+	height: auto;
+}
+
+#Previsualizacion {
+	display: none;
+	aspect-ratio: 1000 / 625;
+	position: relative;
+	margin-bottom: 10px;
+}
+
+#Previsualizacion canvas {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+#canvas {
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+}
+
+#FAQ summary {
+	cursor: pointer;
+}
+
+#FAQ details {
+	margin: 0 1px;
+	padding: .5em 0 .5em .5em;
+}
+
+details ol {
+	padding-left: 1.2em;
+}
+
+details li {
+	margin-bottom: .4em;
+}
+
+#FAQ details:where(:focus, :focus-within) {
+	box-shadow: 1px 1px 2px 2px rgb(0 0 0 / 23%);
+}
+
+#FAQ details[id]:hover summary::after {
+	content: ' #';
+	opacity: .8;
+}
+
+.respuesta {
+	padding: 0 1em;
+}
+
+a.ancla {
+	margin-left: 0.5em;
+	opacity: 0;
+	text-decoration: none;
+}
+
+a.ancla svg {
+	fill: var(--colorAncla);
+	vertical-align: text-top;
+	width: 1.2em;
+}
+
+details:hover a.ancla {
+	opacity: 1;
+}
+
+footer {
+	background-color: var(--colorPie);
+	border-top: 1px solid #666;
+	padding: .4em 0 .8em;
+	text-align: center;
+	margin-top: 1em;
+	font-size: 80%;
+}
+
+.wizard-progress {
+	display: flex;
+	min-height: 60px;
+}
+
+.node,
+.step-name {
+	cursor: pointer;
+}
+
+.step {
+	text-align: center;
+	position: relative;
+	flex: 1;
+}
+
+.step:not(:last-child):before {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 50%;
+	top: 33px;
+	background-color: var(--baseColor);
+	height: 5px;
+	width: 100%;
+}
+
+.node {
+	border: 4px solid var(--baseColor);
+	background-color: var(--baseColor);
+	border-radius: 50%;
+	width: 14px;
+	aspect-ratio: 1;
+	position: absolute;
+	top: 24px;
+	left: 50%;
+	margin-left: -12px;
+}
+
+.step.complete:before {
+	background-color: var(--mainColor);
+}
+
+.complete .node {
+	border-color: var(--mainColor);
+	background-color: var(--mainColor);
+}
+
+.step.in-progress:before {
+	background-image: linear-gradient(to right, var(--mainColor) 0%, var(--baseColor) 100%);
+}
+
+.in-progress .node {
+	border-color: var(--mainColor);
+	background-color: var(--colorActivo);
+}
+
+
+.dragover {
+	position: relative;
+}
+
+.dragover * {
+	pointer-events: none;
+}
+
+.dragover::before {
+	content: "Suelta aqu\00ED  tu imagen";
+	display: flex;
+	position: absolute;
+	width: 99%;
+	height: 99%;
+	background-color: rgba(32, 32, 32, .6);
+	z-index: 2;
+	color: white;
+	font-size: 150%;
+	text-align: center;
+	align-items: center;
+	justify-content: center;
+	text-shadow: 1px 1px 2px #333;
+	box-shadow: 0 0 10px rgba(32, 32, 32, 1);
+	pointer-events: none;
+	opacity: .9;
+}
+
+.btn {
+	position: relative;
+	display: block;
+	padding: 0;
+	overflow: hidden;
+	border-width: 0;
+	border-radius: 2px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+	color: var(--colorBoton);
+	background-color: var(--colorFondoBoton);
+	transition: background-color .3s;
+}
+
+.btn:hover, .btn:focus {
+	background-color: var(--colorFondoBotonHover);
+}
+
+.btn > * {
+	position: relative;
+}
+
+.btn span {
+	display: block;
+	padding: 12px 24px;
+}
+
+.btn:before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	display: block;
+	width: 0;
+	padding-top: 0;
+	border-radius: 100%;
+	background-color: rgba(16 120 146 / .3);
+	transform: translate(-50%, -50%);
+}
+
+.btn:active:before {
+	width: 120%;
+	padding-top: 120%;
+	transition: width .2s ease-out, padding-top .2s ease-out;
+}
+
+.btn svg {
+	aspect-ratio: 1;
+	fill: currentColor;
+	width: 1.2em;
+	margin-left: 10px;
+	vertical-align: middle;
+	transform: translateY(-1px);
+}
+
+.BotonPrincipal {
+	color: var(--colorBotonPrincipal);
+	background-color: var(--colorFondoBotonPrincipal);
+}
+
+.BotonPrincipal:hover, .BotonPrincipal:focus {
+	background-color: var(--colorFondoBotonPrincipalHover);
+}
+
+.BotonPrincipal:before {
+	background-color: rgba(49 132 253 / .5);
+}
+
+.atras svg {
+	margin-left: 0;
+	margin-right: 10px;
+}
+
+.Siguiente .btn span {
+	padding: 6px 12px;
+}
+
+#cerrar {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	margin: 0;
+	padding: 4px;
+	line-height: 0;
+	border-radius: 50%;
+	background: #fff;
+	color: #333;
+	cursor: pointer;
+	transition: all .2s ease-out 0s;
+	transition-property: background-color, color;
+	z-index: 1;
+	display: none;
+}
+
+#cerrar:hover {
+	color: #fff;
+	background: #666;
+}
+
+#cerrar svg {
+	stroke: currentColor;
+	width: 12px;
+	height: 12px;
+	stroke-width: 1.3px;
+}
+
+.informacion {
+	transition: height 0.25s all 0.25s;
+	transition-behavior: allow-discrete; /* Note: be sure to write this after the shorthand */
+	overflow: hidden;
+}
+
+.Editando .informacion {
+	height: 0;
+	margin: 0;
+}
+
+.Editando main {
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+}
+
+.Editando #pasos {
+	position: relative;
+	padding-top: 40px;
+}
+
+.Editando #cerrar {
+	display: block;
+}
+
+.IconoAccion {
+	background-color: var(--colorFondoBoton);
+	color: var(--colorBoton);
+	line-height: 0;
+	border-radius: 5px;
+	cursor: pointer;
+	z-index: 1;
+	border: 0;
+	padding: 2px;
+}
+
+.IconoAccion svg {
+	width: 2em;
+	height: 2em;
+	fill: currentColor;
+}
+
+.ControlesSuperpuestos {
+	position: absolute;
+	top: 0;
+	background: rgba(0 0 0 /.5);
+	padding: 5px;
+	z-index: 1;
+}
+
+#ControlesPosicion {
+	left: 0;
+	display: none;
+	gap: 5px;
+}
+
+body.Editando:where(.EnPaso2, .EnPaso3) #Previsualizacion {
+	touch-action: none;
+}
+
+body.Editando:where(.EnPaso2, .EnPaso3) #ControlesPosicion {
+	display: flex;
+}
+
+.BloqueBotones {
+	display: flex;
+	gap: 3px;
+}
+
+#ControlesPantalla {
+	right: 0;
+}
+
+#Colapsar {
+	display: none;
+}
+
+.EnZoom #Colapsar {
+	display: block;
+}
+
+.EnZoom #Expandir {
+	display: none;
+}
+
+.EnZoom #Previsualizacion {
+	z-index: 1;
+	max-height: 100vh;
+	margin: 0 auto;
+}
+
+.EnZoom h1 {
+	display: none;
+}
+
+.EnZoom canvas {
+	width: 100%;
+}
+
+.EnZoom footer {
+	display: none;
+}
+
+.EnZoom main {
+	max-width: none;
+	padding: 0;
+	width: 100vw;
+}
+
+.EnZoom details {
+	display: none;
+}
+
+.EnZoom .wizard-progress {
+	display: none;
+}
+
+.EnZoom #pasos {
+	padding: 0;
+}
+
+.EnZoom #cerrar {
+	display: none;
+}
+
+body.EnZoom {
+	display: grid;
+	justify-content: center;
+}
+
+/* mostrar un indicador en los enlaces que abrirán nueva ventana */
+a[target='_blank'] {
+	position: relative;
+}
+
+a[target='_blank']:hover::after {
+	background: var(--colorActivo);
+	border: 1px solid #AAA;
+	color: var(--colorAncla);
+	content: "Enlace externo";
+	display: inline-block;
+	font-size: 80%;
+	padding: 2px;
+	position: absolute;
+	transform: translate(0px, -7px);
+	white-space: pre;
+}
+
+a[href^='#'] {
+	text-decoration-style: dotted;
+}
+
+.AbrirInfo {
+	cursor: help;
+}
+
+.Oculto {
+	display: none;
+}
+
+:popover-open {
+	max-width: 590px;
+	inset: 5px;
+	margin: 0;
+	border-width: 1px;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+	padding-inline: 1em;
+}
+
+[popover]:popover-open::backdrop {
+	background: rgb(0 0 0 / 25%);
+}
+
+@media (min-width: 610px) {
+	:popover-open {
+		left: calc(50vw - 300px);
+		max-width: 600px;
+		margin: 0;
+	}
+}

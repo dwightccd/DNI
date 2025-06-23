@@ -1,0 +1,16 @@
+#Ejemplos {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1em;
+	margin-bottom: 2em;
+}
+
+#Ejemplos img {
+	max-width: 100px;
+	cursor: pointer;
+}
+
+.Elegida {
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26), 0 2px 10px 0 rgba(0, 0, 0, 0.22);
+	outline: 1px solid #ccc;
+}
